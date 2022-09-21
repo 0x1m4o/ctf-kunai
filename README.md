@@ -6,144 +6,108 @@
 ---------------------------------------------------------------------------
 
 ## Table Of Contents
-* [Software](#software)
-  * [John The Ripper](#john-the-ripper)
-  * [Nmap](#nmap)
-  * [Netcat](#netcat)
-  * [Hydra](#hydra)
-  * [Kerbrute](#kerbrute)
-  * [Impacket](#impacket)
-  * [Hashcat](#hashcat)
-  * [Smbclient](#smbclient)
-  * [Socat](#socat) 
-  * [Evil-winrm](#evil-winrm)
-  * [Kerberos](#kerberos)
-  * [Viper Monkey](#viper-monkey)
-  * [Gobuster](#gobuster)
-  * [Dirsearch](#dirsearch)
-  * [Enum4linux](#enum4linux)
-  * [Ffuf](#ffuf)
-  * [PrintSpoofer](#printspoofer)
-  * [Peass-ng](#peass-ng)
-  * [Rustscan](#rustscan)
-  * [Template Software](#template-software)
-  * [Template Link](ooooooooooooooo)
+* [Web Exploitation](#web-exploitation)
+  * [Enumeration](#enumeration)
+    * [Dirsearch](#dirsearch)
+    * [Enum4linux](#enum4linux)
+    * [Gobuster](#gobuster)
+    * [Nmap](#nmap)
+    * [Rustscan](#rustscan)
+  * [Exploitation](#exploitation)
+    * [Hydra](#hydra)
+    * [Evil-winrm](#evil-winrm)
+    * [Impacket](#impacket)
+    * [Kerberos](#kerberos)
+    * [Kerbrute](#kerbrute)
+    * [Netcat](#netcat)
+    * [Ffuf](#ffuf)
+    * [Peass-ng](#peass-ng)
+    * [PrintSpoofer](#printspoofer)
+    * [Smbclient](#smbclient)
+    * [Socat](#socat) 
+    * [Viper Monkey](#viper-monkey)
 
-* [Command](#command)
-  * [Cryptography](#Cryptography)
+
+* [Cryptography](#Cryptography)
+  * [John The Ripper](#john-the-ripper)
+  * [Hashcat](#hashcat)
+
+* [Command](#Command)
   * [Find](#find)
   * [FTP](#ftp)
   * [RDP](#rdp)
   * [SSH](#ssh)
+
+* [Template](#template)
+  * [Template Software](#template-software)
   * [Template Command](#template-command)
   * [Template Link](ooooooooooooooo)
 
 ---------------------------------------------------------------------------
 
-# Software
-## John The Ripper
+# Web Exploitation
 
-- ### Show Format Syntax
-john [options] [path to file]
+- # Enumeration
+### Dirsearch
+- ###  Brute Force URL
+dirsearh -u http://google.com
 ###### Example :
 ```
-john --show=formats hash.txt
+dirsearch -u http://hackme.my.id/
 ```
-
-- ### Automatic Cracking with wordlist
-john --wordlist=[path to wordlist] [path to file]
+- ###  Brute Force Existing URL
+dirsearh -u http://google.com -x 403
 ###### Example :
 ```
-john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
+dirsearch -u http://hackme.my.id/ -x 403
 ```
-
-- ### Format-Specific Cracking
-john --format=[format] --wordlist=[path to wordlist] [path to file]
+- ###  Brute Force URL with Extensions
+dirsearh -u http://google.com -e php,html,js,txt
 ###### Example :
 ```
-john --format=raw-sha256 --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
+dirsearch -u http://hackme.my.id/ -e php,html,js,txt
 ```
 
-- ### Unshadow file
-unshadow [path to passwd] [path to shadow] > [file to fill unshadow]
+## Gobuster
+### 𝚰. Gobuster Dir
+- ### Find Website Directory 
+gobuster dir -u [website url] -w [path to wordlist]  
 ###### Example :
 ```
-unshadow local_passwd local_shadow > unshadowed.txt
+gobuster dir -u https://10.10.10.11 -w /usr/share/wordlists/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt  
 ```
-#### ❒After get the unshadow file now crack the hash
-```
-john --format=sha512crypt --wordlist=/usr/share/wordlists/rockyou.txt unshadowed.txt
-```
-
-- ### Single Crack Mode
-john --single --format=[format] [path to file]
+- ### Find Website Directory with Spesific Extension 
+gobuster dir -u [website url] -w [path to wordlist] -x .php, .txt
 ###### Example :
 ```
-john --single --format=raw-md5 hash7.txt
+gobuster dir -u http://10.10.10.11/ -w /usr/share/wordlists/Discovery/Web-Content/common.txt -x .php, .txt 
 ```
-###### notes : hash7.txt -> “ username:[hash_script] “
-
-- ### Crack Zip File Password
-zip2john [options] [zip file] > [output file]
+### 𝚰𝚰. Gobuster Vhost
+- ### Find Subdomain Directory 
+gobuster vhost -v -u [website url] -w [path to wordlist]  
 ###### Example :
 ```
-zip2john secure.zip > secure.txt
-```
-#### ❒ After get the secure.txt now crack the file
-```
-john --wordlist=/usr/share/wordlists/rockyou.txt secure.txt
+gobuster vhost -v -u https://10.10.10.11 -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt  
 ```
 
-- ### Crack Rar File Password
-rar2john [rar file] > [output file]
+### 𝚰𝚰𝚰. Gobuster DNS
+- ### Find Subdomain In A Spesific Domain 
+gobuster dns -d [domain] -w [path to wordlist] -i
 ###### Example :
 ```
-rar2john secure.rar > secure-rar.txt
-```
-#### ❒ After get the secure-rar.txt now crack the file
-```
-john --wordlist=/usr/share/wordlists/rockyou.txt secure-rar.txt
+gobuster dns test.com -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -i 
 ```
 
-- ### Crack SSH Key Password
-ssh2john [id_rsa private key file] > [output file]]
+## Enum4linux
+- ###  Enumerate Windows and SMB Shares
+enum4linux [IP Target]
 ###### Example :
 ```
-ssh2john id_rsa.rsa > id_rsa.txt
+enum4linux 10.10.10.11
 ```
-#### ❒ After get the id_rsa.txt now crack the file
-```
-john --wordlist=/usr/share/wordlists/rockyou.txt id_rsa.txt
-```
-
-
 
 ---------------------------------------------------------------------------
 
-## Netcat
-- ###  Netcat Listener
-nc -lvnp <port-number>
-###### Example :
-```
-nc -lvnp 4444
-```
-- ###  Bind Shells
-nc <target-ip> <chosen-port>
-###### Example :
-```
-nc 10.10.10.11 4444
-```
-- ###  Netcat Stabilisation
-```
-python3 -c 'import pty;pty.spawn("/bin/bash")'
-```
-```
-export TERM=xterm
-```
-press ctrl+z to background the shell
-```
-stty raw -echo; fg
-```
 ## Nmap
 ### 𝚰. Enumeration And Information Gathering
 
@@ -225,7 +189,15 @@ nmap --script ftp-brute -p  --script-args userdb=users.txt,passdb=passwords.txt 
 nmap --script ftp-brute -p 21 --script-args userdb=[username-wordlist.txt],passdb=[passwords-wordlist.txt] 10.10.10.1
 ```
 ---------------------------------------------------------------------------
-
+## Rustscan
+- ###  Port And Service Scanning
+rustscan [IP Target] --ulimit 5000
+###### Example :
+```
+rustscan 10.10.10.11 --ulimit 5000 
+```
+---------------------------------------------------------------------------
+- # Exploitaion
 ## Hydra
 - ### FTP Bruteforce
 hydra -l user -P [path to pass-wordlist] ftp://[IP Target]
@@ -323,6 +295,32 @@ hashcat -m 18200 -a 0 hash.txt /usr/share/wordlists/passwordlist.txt --force
 ```
 
 ---------------------------------------------------------------------------
+
+## Netcat
+- ###  Netcat Listener
+nc -lvnp <port-number>
+###### Example :
+```
+nc -lvnp 4444
+```
+- ###  Bind Shells
+nc <target-ip> <chosen-port>
+###### Example :
+```
+nc 10.10.10.11 4444
+```
+- ###  Netcat Stabilisation
+```
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+```
+```
+export TERM=xterm
+```
+press ctrl+z to background the shell
+```
+stty raw -echo; fg
+```
+---------------------------------------------------------------------------
 ## Smbclient 
 - ### Smbclient IP Listing
 smbclient -L [IP Target] 
@@ -399,63 +397,6 @@ pypy ./ViperMonkey-master/vipermonkey/vmonkey.py --iocs /home/kali/Downloads/inv
 ```
 ---------------------------------------------------------------------------
 
-## Gobuster
-### 𝚰. Gobuster Dir
-- ### Find Website Directory 
-gobuster dir -u [website url] -w [path to wordlist]  
-###### Example :
-```
-gobuster dir -u https://10.10.10.11 -w /usr/share/wordlists/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt  
-```
-- ### Find Website Directory with Spesific Extension 
-gobuster dir -u [website url] -w [path to wordlist] -x .php, .txt
-###### Example :
-```
-gobuster dir -u http://10.10.10.11/ -w /usr/share/wordlists/Discovery/Web-Content/common.txt -x .php, .txt 
-```
-### 𝚰𝚰. Gobuster Vhost
-- ### Find Subdomain Directory 
-gobuster vhost -v -u [website url] -w [path to wordlist]  
-###### Example :
-```
-gobuster vhost -v -u https://10.10.10.11 -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt  
-```
-
-### 𝚰𝚰𝚰. Gobuster DNS
-- ### Find Subdomain In A Spesific Domain 
-gobuster dns -d [domain] -w [path to wordlist] -i
-###### Example :
-```
-gobuster dns test.com -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -i 
-```
-
-## Dirsearch
-- ###  Brute Force URL
-dirsearh -u http://google.com
-###### Example :
-```
-dirsearch -u http://hackme.my.id/
-```
-- ###  Brute Force Existing URL
-dirsearh -u http://google.com -x 403
-###### Example :
-```
-dirsearch -u http://hackme.my.id/ -x 403
-```
-- ###  Brute Force URL with Extensions
-dirsearh -u http://google.com -e php,html,js,txt
-###### Example :
-```
-dirsearch -u http://hackme.my.id/ -e php,html,js,txt
-```
-
-## Enum4linux
-- ###  Enumerate Windows and SMB Shares
-enum4linux [IP Target]
-###### Example :
-```
-enum4linux 10.10.10.11
-```
   
 ## Ffuf
 - ###  Fuzzing URL Directory
@@ -541,41 +482,85 @@ Run the file
 ```
 .\winPEASx64.exe
 ```
-## Rustscan
-- ###  Port And Service Scanning
-rustscan [IP Target] --ulimit 5000
+
+
+
+
+# Cryptography
+## John The Ripper
+
+- ### Show Format Syntax
+john [options] [path to file]
 ###### Example :
 ```
-rustscan 10.10.10.11 --ulimit 5000 
+john --show=formats hash.txt
 ```
 
----------------------------------------------------------------------------
-## Template Software
-- ###  oooooooo
-ooooooooooooooooooooooooooooooooooo
+- ### Automatic Cracking with wordlist
+john --wordlist=[path to wordlist] [path to file]
 ###### Example :
 ```
-ooooooooooooooooooooooooooooooooooo 
+john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
 ```
----------------------------------------------------------------------------
 
----------------------------------------------------------------------------
-## Template with Sub Contents
-### 𝚰. oooooooo
-- ### ooooooooooooooooooooooooooooooooooo 
-ooooooooooooooooooooooooooooooooooo  
+- ### Format-Specific Cracking
+john --format=[format] --wordlist=[path to wordlist] [path to file]
 ###### Example :
 ```
-ooooooooooooooooooooooooooooooooooo  
+john --format=raw-sha256 --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
 ```
-### 𝚰𝚰. oooooooo
-- ### ooooooooooooooooooooooooooooooooooo 
-ooooooooooooooooooooooooooooooooooo  
+
+- ### Unshadow file
+unshadow [path to passwd] [path to shadow] > [file to fill unshadow]
 ###### Example :
 ```
-ooooooooooooooooooooooooooooooooooo  
+unshadow local_passwd local_shadow > unshadowed.txt
 ```
----------------------------------------------------------------------------
+#### ❒After get the unshadow file now crack the hash
+```
+john --format=sha512crypt --wordlist=/usr/share/wordlists/rockyou.txt unshadowed.txt
+```
+
+- ### Single Crack Mode
+john --single --format=[format] [path to file]
+###### Example :
+```
+john --single --format=raw-md5 hash7.txt
+```
+###### notes : hash7.txt -> “ username:[hash_script] “
+
+- ### Crack Zip File Password
+zip2john [options] [zip file] > [output file]
+###### Example :
+```
+zip2john secure.zip > secure.txt
+```
+#### ❒ After get the secure.txt now crack the file
+```
+john --wordlist=/usr/share/wordlists/rockyou.txt secure.txt
+```
+
+- ### Crack Rar File Password
+rar2john [rar file] > [output file]
+###### Example :
+```
+rar2john secure.rar > secure-rar.txt
+```
+#### ❒ After get the secure-rar.txt now crack the file
+```
+john --wordlist=/usr/share/wordlists/rockyou.txt secure-rar.txt
+```
+
+- ### Crack SSH Key Password
+ssh2john [id_rsa private key file] > [output file]]
+###### Example :
+```
+ssh2john id_rsa.rsa > id_rsa.txt
+```
+#### ❒ After get the id_rsa.txt now crack the file
+```
+john --wordlist=/usr/share/wordlists/rockyou.txt id_rsa.txt
+```
 
 ---------------------------------------------------------------------------
 
@@ -625,7 +610,6 @@ rdesktop Administrator@MyDomain 10.10.10.11
 ```
 ---------------------------------------------------------------------------
 
----------------------------------------------------------------------------
 ## SSH
 - ###  How To SSH
 ```
@@ -636,6 +620,31 @@ ssh root@10.10.10.11
 ssh -i id_rsa root@10.10.10.11
 ```
 ---------------------------------------------------------------------------
+# Template
+## Template Software
+- ###  oooooooo
+ooooooooooooooooooooooooooooooooooo
+###### Example :
+```
+ooooooooooooooooooooooooooooooooooo 
+```
+
+---------------------------------------------------------------------------
+## Template with Sub Contents
+### 𝚰. oooooooo
+- ### ooooooooooooooooooooooooooooooooooo 
+ooooooooooooooooooooooooooooooooooo  
+###### Example :
+```
+ooooooooooooooooooooooooooooooooooo  
+```
+### 𝚰𝚰. oooooooo
+- ### ooooooooooooooooooooooooooooooooooo 
+ooooooooooooooooooooooooooooooooooo  
+###### Example :
+```
+ooooooooooooooooooooooooooooooooooo  
+```
 
 ---------------------------------------------------------------------------
 ## Template Command
@@ -643,13 +652,9 @@ ssh -i id_rsa root@10.10.10.11
 ```
 ooooooooooooooooooooooooooooooooooo
 ```
----------------------------------------------------------------------------
 
 ---------------------------------------------------------------------------
 
-## Authors
+## Author
 
 - [@muhamaddutachandra](https://www.linkedin.com/in/muhamaddutachandra/)
-- [@badzlannurdhabith](https://www.linkedin.com/in/badzlannurdhabith/)
-
-![Logo](https://storage.googleapis.com/s.mysch.id/picture/8387797SMKN691.jpg)
