@@ -1,5 +1,5 @@
 
-# Command Sheet Software
+# CTF 3utcher
 
 Dibuat oleh Tim Cyber Security SMKN 69 Jakarta tahun 2022 
 
@@ -33,9 +33,7 @@ Dibuat oleh Tim Cyber Security SMKN 69 Jakarta tahun 2022
   * [Base64](#base64)
   * [Command Line](#command-line)
   * [Crypto](#crypto)
-  * [Executables](#executables)
   * [Find](#find)
-  * [Format Strings](#format-strings)
   * [FTP](#ftp)
   * [RDP](#rdp)
   * [SSH](#ssh)
