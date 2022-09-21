@@ -1,5 +1,5 @@
 
-# CTF 3utcher
+# CTF Kunai
 
 ### I Make this Help you to make CTF Easier ;) 
 
