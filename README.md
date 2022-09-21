@@ -1,6 +1,7 @@
 
 # CTF Kunai
-### Author : Muhamad Duta Chandra
+### Author : Me/Myself
+
 ### This is help me a lot while doing CTF. 
 
 ---------------------------------------------------------------------------
