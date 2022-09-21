@@ -1,5 +1,5 @@
 
-                        * [CTF Kunai]
+                        * [CTF Kunai]()
 ### Author : Me/Myself
 
 ### This is help me a lot while doing CTF. 
