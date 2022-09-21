@@ -7,7 +7,7 @@ Dibuat oleh Tim Cyber Security SMKN 69 Jakarta tahun 2022
 
 ## Table Of Contents
 * [Software](#software)
-  * [John The Ripper](https://github.com/XyberHunter/Persiapan-LKS-Nasional/tree/main/Command%20Sheet#john-the-ripper)
+  * [John The Ripper](#john-the-ripper)
   * [Nmap](https://github.com/XyberHunter/Persiapan-LKS-Nasional/tree/main/Command%20Sheet#nmap)
   * [Netcat](https://github.com/XyberHunter/Persiapan-LKS-Nasional/tree/main/Command%20Sheet#netcat)
   * [Hydra](https://github.com/XyberHunter/Persiapan-LKS-Nasional/tree/main/Command%20Sheet#hydra)
