@@ -31,7 +31,6 @@
 
 * [Command](#command)
   * [Base64](#base64)
-  * [Command Line](#command-line)
   * [Crypto](#crypto)
   * [Find](#find)
   * [FTP](#ftp)
