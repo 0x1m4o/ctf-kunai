@@ -30,8 +30,7 @@
   * [Template Link](ooooooooooooooo)
 
 * [Command](#command)
-  * [Base64](#base64)
-  * [Crypto](#crypto)
+  * [Cryptography](#crypto)
   * [Find](#find)
   * [FTP](#ftp)
   * [RDP](#rdp)
