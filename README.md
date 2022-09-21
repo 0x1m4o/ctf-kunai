@@ -1,7 +1,7 @@
 
 # CTF Kunai
 
-### I Make this to CTF Easier ;) 
+### This is help me a lot while doing CTF. 
 
 ---------------------------------------------------------------------------
 
