@@ -8,7 +8,7 @@
 
 ## Table Of Contents
 * [Software](#software)
-  * [John The Ripper](#john-the-ripper)
+ * [John The Ripper](#john-the-ripper)
   * [Nmap](#nmap)
   * [Netcat](#netcat)
   * [Hydra](#hydra)
