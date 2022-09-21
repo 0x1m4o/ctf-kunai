@@ -1,6 +1,6 @@
 
 # CTF Kunai
-
+### Author : Muhamad Duta Chandra
 ### This is help me a lot while doing CTF. 
 
 ---------------------------------------------------------------------------
@@ -27,7 +27,7 @@
   * [Peass-ng](#peass-ng)
   * [Rustscan](#rustscan)
   * [Template Software](#template-software)
-  * [TemplateLink](ooooooooooooooo)
+  * [Template Link](ooooooooooooooo)
 
 * [Command](#command)
   * [Base64](#base64)
@@ -38,7 +38,7 @@
   * [RDP](#rdp)
   * [SSH](#ssh)
   * [Template Command](#template-command)
-  * [TemplateLink](ooooooooooooooo)
+  * [Template Link](ooooooooooooooo)
 
 ---------------------------------------------------------------------------
 
