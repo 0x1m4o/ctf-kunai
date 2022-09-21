@@ -582,7 +582,7 @@ ooooooooooooooooooooooooooooooooooo
 # Command
 
 
-## Base64
+## Cryptography
 - ###  Base64 Encode
 ```
 echo "Hello World" | base64
