@@ -1,7 +1,7 @@
 
 # CTF 3utcher
 
-Dibuat oleh Tim Cyber Security SMKN 69 Jakarta tahun 2022 
+## I Make this Help you to make CTF Easier ;) 
 
 ---------------------------------------------------------------------------
 
