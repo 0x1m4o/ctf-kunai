@@ -13,6 +13,7 @@
     * [Gobuster](#gobuster)
     * [Nmap](#nmap)
     * [Rustscan](#rustscan)
+    * [Wpscan](#wpscan)
   * [Exploitation](#exploitation)
     * [Hydra](#hydra)
     * [Evil-winrm](#evil-winrm)
@@ -196,7 +197,22 @@ rustscan [IP Target] --ulimit 5000
 ```
 rustscan 10.10.10.11 --ulimit 5000 
 ```
----------------------------------------------------------------------------
+## Wpscan
+- ###  Wordpress Scanning
+wpscan --url google.com
+###### Example :
+```
+wpscan --url blog.thm 
+```
+- ###  Wordpress Enumerate User
+wpscan --url google.com --enumerate u
+###### Example :
+```
+wpscan --url blog.thm --enumerate u 
+```
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
 - # Exploitaion
 ## Hydra
 - ### FTP Bruteforce
