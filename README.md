@@ -670,7 +670,3 @@ ooooooooooooooooooooooooooooooooooo
 ```
 
 ---------------------------------------------------------------------------
-
-## Author
-
-- [@muhamaddutachandra](https://www.linkedin.com/in/muhamaddutachandra/)
